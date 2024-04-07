@@ -103,8 +103,6 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
 
         private static void Characteristic_CharacteristicValueChanged(object sender, GattCharacteristicValueChangedEventArgs e)
         {
-            //var value = random.Next(500, 550);
-
             if (e.Error != null)
             {
                 if (!InitError)
@@ -158,7 +156,6 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
     {
         public class PluginHandler : Interface.LucidPluginBase
         {
-
             public override string Name
             {
                 get
@@ -323,8 +320,6 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
     {
         public class PluginHandler : lucidcode.LucidScribe.Interface.LucidPluginBase
         {
-
-            static int TicksSinceLastArtifact = 0;
             static int TicksAbove = 0;
 
             public override string Name
@@ -347,8 +342,6 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
                 }
             }
 
-            List<int> m_arrHistory = new List<int>();
-
             public override double Value
             {
                 get
@@ -361,16 +354,11 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
                             if (TicksAbove > 5)
                             {
                                 TicksAbove = 0;
-                                TicksSinceLastArtifact = 0;
-                                if (TicksSinceLastArtifact > 19200)
-                                {
-                                    return 888;
-                                }
+                                return 888;
                             }
                         }
 
-                        TicksSinceLastArtifact++;
-                        return 0;
+                        return TicksAbove * 100;
                     }
 
                     return 0;
