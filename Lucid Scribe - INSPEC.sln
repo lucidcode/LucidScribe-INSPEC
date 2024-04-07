@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "INSPEC", "INSPEC\INSPEC.csproj", "{B7116A52-33CE-44EF-B1EB-9D327B734BBB}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "LucidScribe.INSPEC", "Installer\Lucid Scribe INSPEC.vdproj", "{EA1D9E78-7A71-45BF-83F8-10D66E5AC9CA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B7116A52-33CE-44EF-B1EB-9D327B734BBB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B7116A52-33CE-44EF-B1EB-9D327B734BBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B7116A52-33CE-44EF-B1EB-9D327B734BBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B7116A52-33CE-44EF-B1EB-9D327B734BBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA1D9E78-7A71-45BF-83F8-10D66E5AC9CA}.Debug|Any CPU.ActiveCfg = Debug
+		{EA1D9E78-7A71-45BF-83F8-10D66E5AC9CA}.Debug|Any CPU.Build.0 = Debug
+		{EA1D9E78-7A71-45BF-83F8-10D66E5AC9CA}.Release|Any CPU.ActiveCfg = Release
+		{EA1D9E78-7A71-45BF-83F8-10D66E5AC9CA}.Release|Any CPU.Build.0 = Release
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {19859F80-D68C-4CF4-BF67-27B1C6C4FAFB}
+	EndGlobalSection
+EndGlobal
