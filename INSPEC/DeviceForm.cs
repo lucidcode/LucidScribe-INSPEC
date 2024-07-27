@@ -13,7 +13,7 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
     public partial class DeviceForm : Form
     {
         public string SelectedDevice = "";
-        public string Algorithm = "Motion Detection";
+        public string Algorithm = "REM Detection";
         public int Threshold = 600;
         public string DeviceName = "INSPEC";
         public string ServiceUuid = "13370001-763c-4507-99fb-100f72f2300a";

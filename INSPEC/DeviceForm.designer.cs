@@ -39,6 +39,7 @@
             this.Label5 = new System.Windows.Forms.Label();
             this.Label6 = new System.Windows.Forms.Label();
             this.panel3D3 = new lucidcode.Controls.Panel3D();
+            this.scanButton = new System.Windows.Forms.Button();
             this.characteristicUuidText = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.serviceUuidText = new System.Windows.Forms.TextBox();
@@ -52,7 +53,6 @@
             this.panel3D5 = new lucidcode.Controls.Panel3D();
             this.label4 = new System.Windows.Forms.Label();
             this.label11 = new System.Windows.Forms.Label();
-            this.scanButton = new System.Windows.Forms.Button();
             this.pnlPlugins.SuspendLayout();
             this.deviceMenu.SuspendLayout();
             this.Panel3D4.SuspendLayout();
@@ -172,6 +172,17 @@
             this.panel3D3.Size = new System.Drawing.Size(409, 197);
             this.panel3D3.TabIndex = 284;
             // 
+            // scanButton
+            // 
+            this.scanButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.scanButton.Location = new System.Drawing.Point(317, 162);
+            this.scanButton.Name = "scanButton";
+            this.scanButton.Size = new System.Drawing.Size(83, 23);
+            this.scanButton.TabIndex = 294;
+            this.scanButton.Text = "Scan";
+            this.scanButton.UseVisualStyleBackColor = true;
+            this.scanButton.Click += new System.EventHandler(this.scanButton_Click);
+            // 
             // characteristicUuidText
             // 
             this.characteristicUuidText.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
@@ -269,7 +280,9 @@
             this.algorithmCombo.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.algorithmCombo.FormattingEnabled = true;
             this.algorithmCombo.Items.AddRange(new object[] {
-            "Motion Detection"});
+            "REM Detection",
+            "Motion Detection",
+            "Face Detection"});
             this.algorithmCombo.Location = new System.Drawing.Point(113, 27);
             this.algorithmCombo.Name = "algorithmCombo";
             this.algorithmCombo.Size = new System.Drawing.Size(287, 21);
@@ -311,17 +324,6 @@
             this.label11.TabIndex = 3;
             this.label11.Text = "Settings";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // scanButton
-            // 
-            this.scanButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.scanButton.Location = new System.Drawing.Point(317, 162);
-            this.scanButton.Name = "scanButton";
-            this.scanButton.Size = new System.Drawing.Size(83, 23);
-            this.scanButton.TabIndex = 294;
-            this.scanButton.Text = "Scan";
-            this.scanButton.UseVisualStyleBackColor = true;
-            this.scanButton.Click += new System.EventHandler(this.scanButton_Click);
             // 
             // DeviceForm
             // 
