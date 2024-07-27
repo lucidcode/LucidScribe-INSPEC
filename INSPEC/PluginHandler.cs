@@ -20,7 +20,8 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
 
         static bool Initialized;
         static bool InitError;
-        static decimal bleValue;
+        static decimal variance;
+        static int rem;
         static bool clearValue;
 
         static int ticks;
@@ -113,8 +114,16 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
                 return;
             }
 
-            var valueString = Encoding.UTF8.GetString(e.Value);
-            var value = Convert.ToDecimal(valueString);
+            string valueString = Encoding.UTF8.GetString(e.Value);
+            string[] parts = valueString.Split(':');
+            if (parts.Length > 1)
+            {
+                return;
+            }
+
+            parts = valueString.Split(';');
+
+            var value = Convert.ToDecimal(parts[0]);
 
             if (ValueChanged != null)
             {
@@ -124,11 +133,16 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
             if (clearValue)
             {
                 clearValue = false;
-                bleValue = 0;
+                variance = 0;
                 ticks = 0;
             }
 
-            bleValue += value;
+            variance += value;
+
+            rem = Convert.ToInt32(parts[1]);
+
+            var hasFace = parts[2] == "1";
+
             ticks++;
         }
 
@@ -140,15 +154,66 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
             }
         }
 
-        public static Double GetValue()
+        public static Double GetVariance()
         {
             if (ticks == 0) return 0;
-            return (double)(bleValue / ticks);
+            return (double)(variance / ticks);
+        }
+
+        public static Double GetRem()
+        {
+            return rem;
         }
 
         public static void ClearValue()
         {
             clearValue = true;
+        }
+    }
+
+    namespace REM
+    {
+        public class PluginHandler : lucidcode.LucidScribe.Interface.LucidPluginBase
+        {
+            static int TicksAbove = 0;
+
+            public override string Name
+            {
+                get
+                {
+                    return "INSPEC REM";
+                }
+            }
+
+            public override bool Initialize()
+            {
+                try
+                {
+                    return Device.Initialize();
+                }
+                catch (Exception ex)
+                {
+                    throw (new Exception("The '" + Name + "' plugin failed to initialize: " + ex.Message));
+                }
+            }
+
+            public override double Value
+            {
+                get
+                {
+                    if (Device.GetRem() == 8)
+                    {
+                        return 888;
+                    }
+
+                    return Device.GetRem() * 100;
+                }
+            }
+
+            public override void Dispose()
+            {
+                Device.Dispose();
+            }
         }
     }
 
@@ -180,10 +245,8 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
             {
                 get
                 {
-                    var value = Device.GetValue();
+                    var value = Device.GetVariance();
                     Device.ClearValue();
-                    if (value > 999) { value = 999; }
-                    if (value < 0) { value = 0; }
                     return value;
                 }
             }
@@ -312,62 +375,6 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
                 {
                     lastHour = value;
                 }
-            }
-        }
-    }
-
-    namespace REM
-    {
-        public class PluginHandler : lucidcode.LucidScribe.Interface.LucidPluginBase
-        {
-            static int TicksAbove = 0;
-
-            public override string Name
-            {
-                get
-                {
-                    return "INSPEC REM";
-                }
-            }
-
-            public override bool Initialize()
-            {
-                try
-                {
-                    return Device.Initialize();
-                }
-                catch (Exception ex)
-                {
-                    throw (new Exception("The '" + Name + "' plugin failed to initialize: " + ex.Message));
-                }
-            }
-
-            public override double Value
-            {
-                get
-                {
-                    if (Device.Algorithm == "Motion Detection")
-                    {
-                        if (Device.GetValue() > Device.Threshold)
-                        {
-                            TicksAbove++;
-                            if (TicksAbove > 5)
-                            {
-                                TicksAbove = 0;
-                                return 888;
-                            }
-                        }
-
-                        return TicksAbove * 100;
-                    }
-
-                    return 0;
-                }
-            }
-
-            public override void Dispose()
-            {
-                Device.Dispose();
             }
         }
     }
