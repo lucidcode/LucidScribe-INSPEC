@@ -25,6 +25,8 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
         public static List<BluetoothDevice> BleDevicesList = new List<BluetoothDevice>();
         public List<BluetoothDevice> BleDevices = new List<BluetoothDevice>();
 
+        public EventHandler<EventArgs> DeviceSelected;
+
         public DeviceForm()
         {
             InitializeComponent();
@@ -175,7 +177,11 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
                 var deviceNames = lstDevices.SelectedItems[0].Text.Split(' ');
                 SelectedDevice = deviceNames[deviceNames.Length - 1];
                 DialogResult = DialogResult.OK;
-                Close();
+
+                if (DeviceSelected != null)
+                {
+                    DeviceSelected((object)SelectedDevice, null);
+                }
             }
         }
 

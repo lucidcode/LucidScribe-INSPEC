@@ -29,43 +29,30 @@ namespace lucidcode.LucidScribe.Plugin.INSPEC
         static string DeviceId = "";
         static BluetoothDevice BleDevice;
         private static List<BluetoothDevice> BleDevices;
+        static DeviceForm deviceForm;
 
         public static Boolean Initialize()
         {
             if (!Initialized & !InitError)
             {
-                var deviceForm = new DeviceForm();
-                if (deviceForm.ShowDialog() == DialogResult.OK)
-                {
-                    try
-                    {
-                        Algorithm = deviceForm.Algorithm;
-                        Threshold = deviceForm.Threshold;
-                        DeviceId = deviceForm.SelectedDevice;
-                        BleDevices = deviceForm.BleDevices;
-                        ServiceUuid = deviceForm.ServiceUuid;
-                        CharacteristicUuid = deviceForm.CharacteristicUuid;
-
-                        ConnectDevice();
-                    }
-                    catch (Exception ex)
-                    {
-                        if (!InitError)
-                        {
-                            MessageBox.Show(ex.Message, "LucidScribe.InitializePlugin()", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                        InitError = true;
-                    }
-                }
-                else
-                {
-                    InitError = true;
-                    return false;
-                }
-
+                deviceForm = new DeviceForm();
+                deviceForm.DeviceSelected += DeviceSelected;
+                deviceForm.Show();
                 Initialized = true;
             }
             return true;
+        }
+
+        public static void DeviceSelected(object sender, EventArgs e)
+        {
+            Algorithm = deviceForm.Algorithm;
+            Threshold = deviceForm.Threshold;
+            DeviceId = deviceForm.SelectedDevice;
+            BleDevices = deviceForm.BleDevices;
+            ServiceUuid = deviceForm.ServiceUuid;
+            CharacteristicUuid = deviceForm.CharacteristicUuid;
+
+            ConnectDevice();
         }
 
         private static async Task<bool> ConnectDevice()
